@@ -3,7 +3,7 @@ package org.arbusta.operations;
 import java.util.HashSet;
 
 import org.arbusta.model.account.Price;
-import org.arbusta.model.hits.HIT;
+import org.arbusta.model.hits.Hit;
 import org.arbusta.model.hits.HitType;
 import org.arbusta.model.qualifications.QualificationRequirement;
 import org.arbusta.model.qualifications.QualificationType;
@@ -18,11 +18,10 @@ public class Operations {
 	 * @return HITs
 	 * @throws Exception 
 	 */
-	public  HIT CreateHit(
-			Long hitTypeId, String groupId,
-			String question, long lifeTimeInSeconds,
+	public  Hit CreateHit(
+			Long hitTypeId, String question, long lifeTimeInSeconds,
 			Integer maxAssignments, String requesterAnnotation) throws Exception{
-		HIT hit = new HIT(hitTypeId, groupId, question, lifeTimeInSeconds, maxAssignments, requesterAnnotation);
+		Hit hit = new Hit(hitTypeId, question, lifeTimeInSeconds, maxAssignments, requesterAnnotation);
 		hit.save();
 		return hit;
 	}
@@ -88,7 +87,7 @@ public class Operations {
 								 new Price(0.1), "imagenes, categorizacion", 3600L, 
 								 3600L*48, requirements);
 			System.out.println(ht);
-			HIT hit = oper.CreateHit(ht.getId(), "tareas", "", 3600, 3, "REF:0023");
+			Hit hit = oper.CreateHit(ht.getId(), "", 3600, 3, "REF:0023");
 			System.out.println(hit);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

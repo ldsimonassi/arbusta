@@ -7,11 +7,10 @@ import java.sql.ResultSet;
 import org.arbusta.db.DBPool;
 
 
-public class HIT {
-	public HIT(Long hitTypeId, String groupId, String question, long lifetimeInSeconds, 
+public class Hit {
+	public Hit(Long hitTypeId, String question, long lifetimeInSeconds, 
 			   Integer maxAssignments, String requesterAnnotation) {
 		this.hitTypeId = hitTypeId;
-		this.groupId = groupId;
 		this.question = question;
 		this.lifetimeInSeconds = lifetimeInSeconds;
 		this.maxAssignments = maxAssignments;

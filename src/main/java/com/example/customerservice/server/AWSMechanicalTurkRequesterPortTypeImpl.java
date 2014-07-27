@@ -3,6 +3,8 @@ package com.example.customerservice.server;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.arbusta.operations.Operations;
+
 import com.amazonaws.mturk.requester.doc._2012_03_25.AWSMechanicalTurkRequesterPortType;
 import com.amazonaws.mturk.requester.doc._2012_03_25.ApproveAssignment;
 import com.amazonaws.mturk.requester.doc._2012_03_25.ApproveAssignmentResponse;
@@ -164,6 +166,7 @@ public class AWSMechanicalTurkRequesterPortTypeImpl  implements AWSMechanicalTur
 	public CreateHITResponse createHIT(CreateHIT body) {
 		System.out.println("CreateHit Method Call recieved");
 		List<CreateHITRequest> requests = body.getRequest();
+
 		for (CreateHITRequest createHITRequest : requests) {
 			System.out.println("\t----- Request ----");
 			System.out.println("\tTitle: "+createHITRequest.getTitle());
@@ -171,6 +174,19 @@ public class AWSMechanicalTurkRequesterPortTypeImpl  implements AWSMechanicalTur
 			System.out.println("\tQuestion: "+createHITRequest.getQuestion());
 			System.out.println("\tMax Assignments: " + createHITRequest.getMaxAssignments());
 			System.out.println("\tReward:"+createHITRequest.getReward().getCurrencyCode()+ createHITRequest.getReward().getAmount());
+			
+			Operations oper = new Operations();
+			try {
+				oper.CreateHit(Long.parseLong(createHITRequest.getHITTypeId()), 
+							   createHITRequest.getQuestion(), 
+							   createHITRequest.getLifetimeInSeconds(), 
+							   createHITRequest.getMaxAssignments(), 
+							   createHITRequest.getRequesterAnnotation());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new RuntimeException("Errror", e);
+			}
 		}
 		
 		CreateHITResponse response = new CreateHITResponse();
